@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesquisa Municipal — Jundiaí SP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--azul:#0D3B6E;--azul-med:#1B5FA8;--azul-light:#E6F1FB;--verde:#0E7C4A;--verde-l:#D4F0E3;--laranja:#E06320;--laranja-l:#FFF0E6;--vermelho:#C0392B;--vermelho-l:#FDECEA;--cinza-f:#F4F6FA;--cinza-b:#E2E8F0;--cinza-t:#64748B;--texto:#1A2332;--branco:#FFFFFF;--sombra:0 4px 24px rgba(13,59,110,0.10);--raio:16px;--raio-sm:10px;--fonte-h:'Sora',sans-serif;--fonte-b:'DM Sans',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--fonte-b);background:#F4F7FC;color:var(--texto);min-height:100vh;}
+body::before{content:'';position:fixed;top:-120px;right:-120px;width:480px;height:480px;background:radial-gradient(circle,rgba(27,95,168,0.12) 0%,transparent 70%);pointer-events:none;z-index:0;}
+.header{position:fixed;top:0;left:0;right:0;background:var(--azul);z-index:100;padding:0 24px;}
+.header-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px;}
+.header-title{font-family:var(--fonte-h);font-size:13px;font-weight:600;color:rgba(255,255,255,0.9);letter-spacing:0.5px;}
+.header-prog{font-family:var(--fonte-h);font-size:12px;color:rgba(255,255,255,0.65);}
+.barra-wrap{position:fixed;top:56px;left:0;right:0;height:4px;background:rgba(255,255,255,0.15);z-index:100;}
+.barra-fill{height:100%;background:linear-gradient(90deg,#5BB8FF,#38E8B5);transition:width 0.5s cubic-bezier(.4,0,.2,1);width:0%;}
+.container{max-width:720px;margin:0 auto;padding:80px 20px 100px;position:relative;z-index:1;}
+.capa{text-align:center;padding:40px 0 20px;}
+.capa-badge{display:inline-block;background:var(--azul-light);color:var(--azul-med);font-family:var(--fonte-h);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:24px;}
+.capa h1{font-family:var(--fonte-h);font-size:32px;font-weight:700;color:var(--azul);line-height:1.2;margin-bottom:12px;}
+.capa p{font-size:16px;color:var(--cinza-t);line-height:1.7;max-width:500px;margin:0 auto 32px;}
+.chips{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:32px;}
+.chip{display:flex;align-items:center;gap:6px;background:var(--branco);border:1px solid var(--cinza-b);border-radius:100px;padding:6px 14px;font-size:13px;color:var(--cinza-t);}
+.info-box{background:var(--azul-light);border-radius:var(--raio);padding:20px 24px;text-align:left;border-left:4px solid var(--azul-med);}
+.info-box p{font-size:13px;color:var(--azul);line-height:1.7;margin:0;}
+.bloco-card{background:var(--branco);border-radius:var(--raio);box-shadow:var(--sombra);overflow:hidden;margin-bottom:16px;animation:slideUp 0.4s ease both;}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.bloco-header{background:var(--azul);padding:16px 24px;display:flex;align-items:center;gap:12px;}
+.bloco-letra{width:32px;height:32px;background:rgba(255,255,255,0.18);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--fonte-h);font-size:14px;font-weight:700;color:white;flex-shrink:0;}
+.bloco-titulo{font-family:var(--fonte-h);font-size:14px;font-weight:600;color:rgba(255,255,255,0.95);}
+.bloco-body{padding:24px;}
+.pq-wrap{margin-bottom:28px;}
+.pq-wrap:last-child{margin-bottom:0;}
+.pq-num{font-family:var(--fonte-h);font-size:10px;font-weight:700;color:var(--azul-med);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.pq-txt{font-family:var(--fonte-h);font-size:16px;font-weight:600;color:var(--texto);line-height:1.45;margin-bottom:4px;}
+.pq-dica{font-size:13px;color:var(--cinza-t);margin-bottom:14px;line-height:1.5;}
+.opcoes{display:flex;flex-direction:column;gap:8px;}
+.opcao{display:flex;align-items:center;gap:12px;padding:13px 16px;border:1.5px solid var(--cinza-b);border-radius:var(--raio-sm);cursor:pointer;transition:all 0.18s;background:var(--cinza-f);user-select:none;}
+.opcao:hover{border-color:var(--azul-med);background:var(--azul-light);}
+.opcao.sel{border-color:var(--azul-med);background:var(--azul-light);box-shadow:0 0 0 3px rgba(27,95,168,0.12);}
+.radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--cinza-b);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.18s;}
+.opcao.sel .radio{border-color:var(--azul-med);background:var(--azul-med);}
+.opcao.sel .radio::after{content:'';width:8px;height:8px;border-radius:50%;background:white;}
+.opcao-txt{font-size:14px;color:var(--texto);line-height:1.4;}
+.opcao.sel .opcao-txt{color:var(--azul);font-weight:500;}
+
+/* AUTOCOMPLETE */
+.ac-wrap{position:relative;}
+.campo{width:100%;padding:14px 16px;border:1.5px solid var(--cinza-b);border-radius:var(--raio-sm);font-family:var(--fonte-b);font-size:14px;color:var(--texto);background:var(--cinza-f);transition:border-color 0.18s;outline:none;}
+.campo:focus{border-color:var(--azul-med);background:var(--branco);}
+.campo::placeholder{color:#b0bec5;}
+.campo.ok{border-color:var(--verde);background:var(--verde-l);}
+.campo.err{border-color:var(--vermelho);background:var(--vermelho-l);}
+.ac-lista{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--branco);border:1.5px solid var(--azul-med);border-radius:var(--raio-sm);box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:200;max-height:220px;overflow-y:auto;display:none;}
+.ac-lista.open{display:block;animation:slideUp 0.15s ease;}
+.ac-item{padding:12px 16px;cursor:pointer;font-size:14px;color:var(--texto);border-bottom:1px solid var(--cinza-f);transition:background 0.12s;display:flex;align-items:center;gap:8px;}
+.ac-item:last-child{border-bottom:none;}
+.ac-item:hover,.ac-item.ativo{background:var(--azul-light);color:var(--azul);}
+.ac-item em{font-style:normal;font-weight:700;color:var(--azul-med);}
+.bairro-badge{display:inline-flex;align-items:center;gap:6px;background:var(--verde-l);border:1px solid var(--verde);color:var(--verde);border-radius:100px;padding:5px 12px;font-size:13px;font-weight:500;margin-top:8px;}
+.bairro-badge button{background:none;border:none;cursor:pointer;color:var(--verde);font-size:18px;line-height:1;padding:0 0 0 4px;}
+.ac-hint{font-size:12px;color:var(--cinza-t);margin-top:6px;}
+/* GEOCODING ADDRESS */
+.geo-status { font-size:12px; margin-top:6px; display:flex; align-items:center; gap:6px; }
+.geo-spin { width:12px; height:12px; border:2px solid var(--cinza-b); border-top-color:var(--azul-med); border-radius:50%; animation:spin360 0.7s linear infinite; }
+@keyframes spin360 { to { transform:rotate(360deg); } }
+.geo-ok  { color:var(--verde); font-weight:500; }
+.geo-err { color:var(--vermelho); }
+
+
+/* ESCALA */
+.escala{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
+.en{flex:1;min-width:36px;height:48px;border:1.5px solid var(--cinza-b);border-radius:8px;background:var(--cinza-f);display:flex;align-items:center;justify-content:center;font-family:var(--fonte-h);font-size:15px;font-weight:600;cursor:pointer;transition:all 0.15s;color:var(--cinza-t);}
+.en:hover{border-color:var(--azul-med);background:var(--azul-light);color:var(--azul);}
+.en.sel{background:var(--azul-med);border-color:var(--azul-med);color:white;transform:scale(1.06);}
+.en[data-v="0"]{color:var(--vermelho);}
+.en[data-v="10"]{color:var(--verde);}
+.en[data-v="0"].sel,.en[data-v="10"].sel{color:white;}
+.escala-labs{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--cinza-t);}
+
+/* LIKERT */
+.lk-wrap{overflow-x:auto;margin-top:8px;}
+.lk-table{width:100%;border-collapse:collapse;min-width:480px;}
+.lk-table th{font-family:var(--fonte-h);font-size:11px;font-weight:600;color:var(--azul);text-align:center;padding:8px 4px;border-bottom:2px solid var(--cinza-b);}
+.lk-table th:first-child{text-align:left;padding-left:8px;}
+.lk-table td{padding:10px 4px;text-align:center;border-bottom:1px solid var(--cinza-b);font-size:13px;transition:background 0.15s;}
+.lk-table td:first-child{text-align:left;padding-left:8px;font-size:13px;font-weight:500;}
+.lk-table tr:last-child td{border-bottom:none;}
+.lk-table tr:nth-child(even) td{background:var(--cinza-f);}
+.lk-table tr:hover td{background:var(--azul-light);}
+.lk-r{width:22px;height:22px;border-radius:50%;border:2px solid var(--cinza-b);margin:0 auto;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;}
+.lk-r:hover{border-color:var(--azul-med);}
+.lk-r.on{border-color:var(--azul-med);background:var(--azul-med);}
+.lk-r.on::after{content:'';width:9px;height:9px;border-radius:50%;background:white;}
+
+/* PRIORIDADES */
+.prio-lista{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.prio-item{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid var(--cinza-b);border-radius:var(--raio-sm);background:var(--cinza-f);cursor:grab;transition:all 0.18s;user-select:none;}
+.prio-item:hover{border-color:var(--azul-med);background:var(--azul-light);}
+.prio-item.dragging{opacity:0.5;cursor:grabbing;}
+.prio-item.drag-over{border-color:var(--azul-med);background:var(--azul-light);transform:scale(1.01);}
+.prio-rank{width:26px;height:26px;border-radius:6px;background:var(--azul-med);color:white;font-family:var(--fonte-h);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.prio-nome{font-size:14px;font-weight:500;flex:1;}
+.prio-drag{color:var(--cinza-b);font-size:16px;}
+
+/* TEXTAREA */
+.campo-area{width:100%;padding:14px 16px;border:1.5px solid var(--cinza-b);border-radius:var(--raio-sm);font-family:var(--fonte-b);font-size:14px;color:var(--texto);background:var(--cinza-f);resize:vertical;min-height:100px;outline:none;transition:border-color 0.18s;}
+.campo-area:focus{border-color:var(--azul-med);background:var(--branco);}
+.cnt{font-size:11px;color:var(--cinza-b);text-align:right;margin-top:4px;}
+
+.nota-rot{background:var(--laranja-l);border-left:3px solid var(--laranja);border-radius:0 8px 8px 0;padding:10px 14px;margin-top:10px;font-size:12px;color:var(--laranja);font-weight:500;}
+.divider{height:1px;background:var(--cinza-b);margin:24px 0;}
+.af-badge{background:var(--cinza-f);border:1px solid var(--cinza-b);border-radius:var(--raio-sm);padding:10px 14px;margin-top:16px;font-size:12px;color:var(--cinza-t);display:flex;align-items:center;gap:8px;}
+
+/* BOTÕES */
+.btn-wrap{position:fixed;bottom:0;left:0;right:0;background:rgba(240,244,251,0.95);backdrop-filter:blur(12px);padding:16px 20px;z-index:100;border-top:1px solid var(--cinza-b);}
+.btn-wrap-inner{max-width:720px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.btn{font-family:var(--fonte-h);font-size:14px;font-weight:600;padding:13px 28px;border-radius:100px;border:none;cursor:pointer;transition:all 0.18s;display:flex;align-items:center;gap:6px;}
+.btn-v{background:var(--branco);color:var(--cinza-t);border:1.5px solid var(--cinza-b);}
+.btn-v:hover{background:var(--cinza-f);}
+.btn-a{background:var(--azul-med);color:white;box-shadow:0 4px 14px rgba(27,95,168,0.3);}
+.btn-a:hover{background:var(--azul);transform:translateY(-1px);}
+.btn-a:disabled{background:var(--cinza-b);color:var(--cinza-t);box-shadow:none;transform:none;cursor:not-allowed;}
+.btn-e{background:var(--verde);color:white;box-shadow:0 4px 14px rgba(14,124,74,0.3);}
+.btn-e:hover{background:#0a6040;transform:translateY(-1px);}
+
+/* TELAS ESPECIAIS */
+.tela-final,.tela-bloq{text-align:center;padding:60px 20px;}
+.tf-ico,.tb-ico{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;}
+.tf-ico{background:var(--verde-l);animation:popIn 0.5s cubic-bezier(.4,0,.2,1);}
+.tb-ico{background:var(--laranja-l);}
+@keyframes popIn{from{opacity:0;transform:scale(0.5);}to{opacity:1;transform:scale(1);}}
+.tela-final h2{font-family:var(--fonte-h);font-size:28px;font-weight:700;color:var(--verde);margin-bottom:12px;}
+.tela-bloq h2{font-family:var(--fonte-h);font-size:24px;font-weight:700;color:var(--laranja);margin-bottom:12px;}
+.tela-final p,.tela-bloq p{font-size:15px;color:var(--cinza-t);line-height:1.7;max-width:440px;margin:0 auto 16px;}
+.dias-box{display:inline-block;background:var(--laranja-l);border:1.5px solid var(--laranja);color:var(--laranja);font-family:var(--fonte-h);font-size:20px;font-weight:700;padding:10px 24px;border-radius:100px;margin:12px 0;}
+.btn-exp{display:inline-flex;align-items:center;gap:8px;background:var(--azul-med);color:white;font-family:var(--fonte-h);font-size:14px;font-weight:600;padding:13px 24px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(27,95,168,0.3);transition:all 0.18s;}
+.btn-exp:hover{background:var(--azul);transform:translateY(-1px);}
+
+.hidden{display:none!important;}
+.tela{animation:fadeSlide 0.35s ease both;}
+@keyframes fadeSlide{from{opacity:0;transform:translateX(24px);}to{opacity:1;transform:translateX(0);}}
+@media(max-width:520px){.capa h1{font-size:26px;}.en{min-width:28px;height:40px;font-size:13px;}.bloco-body{padding:16px;}.btn{padding:12px 20px;font-size:13px;}}
+
+/* MODAL CONFIRMAÇÃO DE BAIRRO */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(4,44,83,0.7);z-index:999;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  animation:fadeIn 0.2s ease;
+}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal-box{
+  background:#fff;border-radius:20px;padding:28px 24px;
+  max-width:420px;width:100%;box-shadow:0 20px 60px rgba(4,44,83,0.25);
+  animation:slideUp 0.25s ease;
+}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-icon{
+  width:56px;height:56px;background:#E6F1FB;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+}
+.modal-titulo{font-size:18px;font-weight:700;color:#042C53;text-align:center;margin-bottom:6px;}
+.modal-sub{font-size:13px;color:#64748B;text-align:center;margin-bottom:20px;line-height:1.5;}
+.modal-bairro-destaque{
+  background:#E6F1FB;border:2px solid #185FA5;border-radius:12px;
+  padding:14px 18px;text-align:center;margin-bottom:20px;
+}
+.modal-bairro-nome{font-size:22px;font-weight:700;color:#042C53;margin-bottom:2px;}
+.modal-bairro-cidade{font-size:12px;color:#378ADD;letter-spacing:0.5px;}
+.modal-btns{display:flex;flex-direction:column;gap:10px;}
+.btn-confirmar{
+  background:#185FA5;color:#fff;border:none;border-radius:10px;
+  padding:14px;font-size:15px;font-weight:600;cursor:pointer;
+  font-family:inherit;transition:background 0.2s;
+}
+.btn-confirmar:hover{background:#0C447C;}
+.btn-corrigir{
+  background:#F4F7FC;color:#185FA5;border:1.5px solid #B5D4F4;border-radius:10px;
+  padding:12px;font-size:14px;font-weight:500;cursor:pointer;
+  font-family:inherit;transition:all 0.2s;
+}
+.btn-corrigir:hover{background:#E6F1FB;}
+.modal-lista-wrap{margin-top:14px;display:none;}
+.modal-lista-titulo{font-size:12px;color:#64748B;margin-bottom:8px;}
+.modal-busca{
+  width:100%;border:1.5px solid #B5D4F4;border-radius:8px;
+  padding:8px 12px;font-size:14px;font-family:inherit;outline:none;
+  margin-bottom:8px;
+}
+.modal-busca:focus{border-color:#185FA5;}
+.modal-lista-bairros{
+  max-height:180px;overflow-y:auto;border:1px solid #E2E8F0;border-radius:8px;
+}
+.modal-bairro-item{
+  padding:10px 14px;font-size:13px;cursor:pointer;border-bottom:1px solid #F4F7FC;
+  transition:background 0.15s;color:#042C53;
+}
+.modal-bairro-item:last-child{border-bottom:none;}
+.modal-bairro-item:hover{background:#E6F1FB;}
+
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-inner">
+    <div style="display:flex;align-items:center;gap:10px;">
+        <svg width="24" height="24" viewBox="0 0 44 44" fill="none">
+          <rect width="44" height="44" rx="8" fill="#378ADD"/>
+          <rect x="7" y="22" width="7" height="15" rx="2" fill="#fff"/>
+          <rect x="18" y="16" width="7" height="21" rx="2" fill="rgba(255,255,255,0.7)"/>
+          <rect x="29" y="9" width="7" height="28" rx="2" fill="rgba(255,255,255,0.4)"/>
+          <circle cx="10.5" cy="18" r="2" fill="#fff"/>
+          <circle cx="21.5" cy="12" r="2" fill="rgba(255,255,255,0.7)"/>
+          <line x1="10.5" y1="18" x2="21.5" y2="12" stroke="#fff" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+        </svg>
+        <div>
+          <div class="header-title">Civiq</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.5);letter-spacing:1.5px;line-height:1;">JUNDIAÍ SP</div>
+        </div>
+      </div>
+    <div class="header-prog" id="prog-txt"></div>
+  </div>
+</div>
+<div class="barra-wrap"><div class="barra-fill" id="barra"></div></div>
+<div class="container"><div id="app"></div></div>
+<div class="btn-wrap" id="btn-area">
+  <div class="btn-wrap-inner">
+    <button class="btn btn-v" id="btn-v" onclick="voltar()">← Voltar</button>
+    <button class="btn btn-a" id="btn-a" onclick="avancar()" disabled>Continuar →</button>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+// ANTIFRAUDE — dupla camada sem login
+// ════════════════════════════════════════
+const DIAS = 45;
+const VER  = 'pqj_v1';
+
+function fingerprint() {
+  const n = navigator, s = screen;
+  const raw = [n.language,n.platform,n.hardwareConcurrency,n.maxTouchPoints,
+    s.colorDepth,s.width+'x'+s.height,
+    Intl.DateTimeFormat().resolvedOptions().timeZone,
+    new Date().getTimezoneOffset(),
+    n.userAgent.slice(0,80)].join('|');
+  let h = 5381;
+  for (let i=0;i<raw.length;i++){h=((h<<5)+h)+raw.charCodeAt(i);h=h&h;}
+  return 'fp'+Math.abs(h).toString(36);
+}
+
+function idbOp(mode, key, val) {
+  return new Promise(res => {
+    try {
+      const r = indexedDB.open('pqj_af',1);
+      r.onupgradeneeded = e => e.target.result.createObjectStore('d');
+      r.onsuccess = e => {
+        const db = e.target.result;
+        const tx = db.transaction('d', mode);
+        const st = tx.objectStore('d');
+        const req = mode==='readwrite' ? st.put(val,key) : st.get(key);
+        req.onsuccess = () => res(req.result||null);
+        req.onerror = () => res(null);
+      };
+      r.onerror = () => res(null);
+    } catch { res(null); }
+  });
+}
+
+async function checkBloqueio() {
+  const fp = fingerprint();
+  const kls = VER+'_'+fp, kidb = VER+'_idb_'+fp;
+  let rls=null, ridb=null;
+  try { rls = JSON.parse(localStorage.getItem(kls)); } catch {}
+  ridb = await idbOp('readonly', kidb);
+  const lista = [rls,ridb].filter(Boolean);
+  if (!lista.length) return {bloqueado:false, fp, kls, kidb};
+  const rec = lista.reduce((a,b)=>a.ts>b.ts?a:b);
+  const dias = (Date.now()-rec.ts)/(86400000);
+  if (dias < DIAS) return {bloqueado:true, diasR: Math.ceil(DIAS-dias)};
+  return {bloqueado:false, fp, kls, kidb};
+}
+
+async function registrar(fp, kls, kidb) {
+  const d = {ts:Date.now(), fp, ver:'1.0'};
+  try { localStorage.setItem(kls, JSON.stringify(d)); } catch {}
+  await idbOp('readwrite', kidb, d);
+}
+
+// ════════════════════════════════════════
+// BAIRROS IBGE 2022 — Jundiaí (73)
+// ════════════════════════════════════════
+const BAIRROS = ["Aeroporto","Agapeama","Alvorada","Anhangabaú","Bom Jardim","Bonfiglioli","Campo Verde","Casa Branca","Castanho","Caxambu","Cecap","Centro","Champirra","Chácara Urbana","Colônia","Cristais","Currupira","Distrito Industrial","Eloy Chaves","Engordadouro","Ermida","Fazenda Conceição","Fazenda Grande","Fernandes","Gramadão","Horto Florestal","Hortolândia","Ivoturucaia","Jardim Botânico","Jardim Pacaembu","Jardim do Lago","Jundiaí Mirim","Malota","Marco Leite","Maringá","Mato Dentro","Medeiros","Moisés","Nambi","Nova Odessa","Novo Horizonte","Parque Centenário","Parque Industrial","Pinheirinho","Ponte Alta","Ponte São João","Poste","Pracatú","Retiro","Rio Acima","Rio das Pedras","Roseira","Samambaia","Santa Gertrudes","São Camilo","São José da Pedra Santa","Tamoio","Tarumã","Terra Nova","Tijuco Preto","Toca","Torres de São José","Traviú","Tulipas","Vale Azul","Vianelo","Vila Arens","Vila Militar","Vila Municipal","Vila Progresso","Vila Rami","Vila Rio Branco","Água Doce"];
+
+// ════════════════════════════════════════
+// ESTADO
+// ════════════════════════════════════════
+const R = {}; // respostas
+let tela = 0, af = null, bairroOk = false, acIdx = -1;
+R.prioridades = ["Saúde","Educação","Segurança Pública","Mobilidade","Limpeza Urbana","Infraestrutura","Emprego e Renda","Meio Ambiente"];
+
+const LK = {
+  saude:        {t:"Saúde Pública",           i:["Postos de saúde / UBS","Pronto-atendimento (PA/UPA)","Tempo de espera por consulta","Qualidade do atendimento médico","Acesso a especialistas e exames"]},
+  educacao:     {t:"Educação",                i:["Creches e educação infantil","Ensino fundamental (escolas)","Infraestrutura das escolas","Qualidade do ensino","Transporte escolar"]},
+  seguranca:    {t:"Segurança Pública",       i:["Policiamento no bairro","Iluminação pública","Sensação de segurança (dia)","Sensação de segurança (noite)","Resposta da GCM/polícia"]},
+  mobilidade:   {t:"Mobilidade e Transporte", i:["Qualidade do asfalto e ruas","Transporte público (ônibus)","Sinalização de trânsito","Calçadas e acessibilidade","Ciclofaixas"]},
+  limpeza:      {t:"Limpeza Urbana",          i:["Coleta de lixo regular","Coleta seletiva/reciclagem","Limpeza de ruas e calçadas","Manutenção de parques e praças","Controle de bueiros e enchentes"]},
+  infraestrutura:{t:"Infraestrutura e Obras", i:["Tapa-buracos e pavimentação","Saneamento (água e esgoto)","Manutenção de áreas públicas","Obras no bairro","Velocidade de resolução de problemas"]}
+};
+
+const TELAS = [
+  {id:'capa',    fn:rCapa},
+  {id:'a',       fn:rBlocoA},
+  {id:'b',       fn:rBlocoB},
+  {id:'c_saude', fn:()=>rLK('saude')},
+  {id:'c_edu',   fn:()=>rLK('educacao')},
+  {id:'c_seg',   fn:()=>rLK('seguranca')},
+  {id:'c_mob',   fn:()=>rLK('mobilidade')},
+  {id:'c_limp',  fn:()=>rLK('limpeza')},
+  {id:'c_infra', fn:()=>rLK('infraestrutura')},
+  {id:'d',       fn:rBlocoD},
+  {id:'e',       fn:rBlocoE},
+  {id:'final',   fn:rFinal},
+];
+
+// ════════════════════════════════════════
+// AUTOCOMPLETE
+// ════════════════════════════════════════
+function norm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();}
+function filtrar(q){
+  if(!q||q.length<2)return[];
+  const n=norm(q);
+  return BAIRROS.filter(b=>norm(b).includes(n)).slice(0,8);
+}
+function hl(txt,q){
+  const n=norm(q),t=norm(txt),i=t.indexOf(n);
+  if(i===-1)return txt;
+  return txt.slice(0,i)+'<em>'+txt.slice(i,i+q.length)+'</em>'+txt.slice(i+q.length);
+}
+
+function onInput(v){
+  bairroOk=false; R.bairro='';
+  const lista=document.getElementById('acl'), badge=document.getElementById('bbd'), campo=document.getElementById('bci');
+  badge.innerHTML=''; campo.classList.remove('ok','err');
+  const res=filtrar(v); acIdx=-1;
+  if(!res.length){
+    lista.classList.remove('open'); lista.innerHTML='';
+    if(v.length>=3) campo.classList.add('err');
+  } else {
+    lista.innerHTML=res.map((b,i)=>
+      `<div class="ac-item" data-b="${b}" data-i="${i}"
+        onmousedown="selBairro('${b.replace(/'/g,"\\'")}')"
+        onmouseenter="setIdx(${i})">📍 <span>${hl(b,v)}</span></div>`
+    ).join('');
+    lista.classList.add('open');
+  }
+  chk();
+}
+
+function setIdx(i){
+  acIdx=i;
+  document.querySelectorAll('.ac-item').forEach((el,j)=>el.classList.toggle('ativo',j===i));
+}
+
+function onKey(e){
+  const lista=document.getElementById('acl');
+  const items=lista.querySelectorAll('.ac-item');
+  if(e.key==='ArrowDown'){e.preventDefault();acIdx=Math.min(acIdx+1,items.length-1);items.forEach((el,i)=>el.classList.toggle('ativo',i===acIdx));}
+  else if(e.key==='ArrowUp'){e.preventDefault();acIdx=Math.max(acIdx-1,0);items.forEach((el,i)=>el.classList.toggle('ativo',i===acIdx));}
+  else if(e.key==='Enter'&&acIdx>=0){e.preventDefault();const a=items[acIdx];if(a)selBairro(a.dataset.b);}
+  else if(e.key==='Escape') lista.classList.remove('open');
+}
+
+function selBairro(b){
+  bairroOk=true; R.bairro=b;
+  const campo=document.getElementById('bci'), lista=document.getElementById('acl'), badge=document.getElementById('bbd');
+  campo.value=b; campo.classList.add('ok'); campo.classList.remove('err');
+  lista.classList.remove('open');
+  badge.innerHTML=`<div class="bairro-badge">✓ ${b}<button onclick="limBairro()">×</button></div>`;
+  chk();
+}
+
+function limBairro(){
+  bairroOk=false; R.bairro='';
+  const campo=document.getElementById('bci'), badge=document.getElementById('bbd');
+  campo.value=''; campo.classList.remove('ok','err'); badge.innerHTML=''; campo.focus(); chk();
+}
+
+function fecharAC(){setTimeout(()=>{const l=document.getElementById('acl');if(l)l.classList.remove('open');},150);}
+
+// ════════════════════════════════════════
+// RENDERS
+// ════════════════════════════════════════
+function rCapa(){
+  return `<div class="capa tela">
+
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;">
+      <svg width="40" height="40" viewBox="0 0 44 44" fill="none">
+        <rect width="44" height="44" rx="10" fill="#185FA5"/>
+        <rect x="7" y="22" width="7" height="15" rx="2" fill="#fff"/>
+        <rect x="18" y="16" width="7" height="21" rx="2" fill="#85B7EB"/>
+        <rect x="29" y="9" width="7" height="28" rx="2" fill="#B5D4F4"/>
+        <circle cx="10.5" cy="18" r="2" fill="#fff"/>
+        <circle cx="21.5" cy="12" r="2" fill="#85B7EB"/>
+        <line x1="10.5" y1="18" x2="21.5" y2="12" stroke="#fff" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+      </svg>
+      <div style="text-align:left;">
+        <div style="font-size:22px;font-weight:700;color:#042C53;letter-spacing:-0.5px;line-height:1;">Civiq</div>
+        <div style="font-size:10px;letter-spacing:2px;color:var(--azul-med);">INTELIGÊNCIA EM TEMPO REAL</div>
+      </div>
+    </div>
+
+    <h1 style="font-size:28px;font-weight:700;color:#042C53;line-height:1.25;margin-bottom:10px;">
+      Jundiaí é sua cidade.<br>Sua voz faz diferença.
+    </h1>
+    <p style="font-size:15px;color:var(--cinza-t);line-height:1.7;max-width:480px;margin:0 auto 24px;">
+      Participe da pesquisa de opinião sobre os serviços públicos municipais. Em 5 minutos, você contribui para um diagnóstico científico do seu bairro.
+    </p>
+
+    <div class="chips">
+      <div class="chip">⏱ 5 minutos</div>
+      <div class="chip">🔒 Dados anônimos</div>
+      <div class="chip">📍 Por bairro</div>
+      <div class="chip">📊 Base IBGE 2022</div>
+    </div>
+
+    <div style="background:#E6F1FB;border-radius:14px;padding:18px 20px;text-align:left;margin-top:20px;border-left:4px solid #185FA5;">
+      <div style="font-size:13px;font-weight:600;color:#042C53;margin-bottom:6px;">Como funciona?</div>
+      <div style="font-size:13px;color:#185FA5;line-height:1.7;">
+        Você avalia os serviços do seu bairro — saúde, segurança, transporte e mais. As respostas são ponderadas pela população real de cada região (IBGE 2022) e geram um índice de aprovação científico por bairro.<br><br>
+        <strong>1 participação por dispositivo a cada 45 dias</strong> — sem cadastro, sem identificação pessoal.
+      </div>
+    </div>
+
+    <div style="margin-top:20px;padding:14px 16px;background:#fff;border-radius:10px;border:0.5px solid #E2E8F0;display:flex;align-items:center;gap:12px;">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7z" fill="#185FA5"/>
+        <circle cx="10" cy="9" r="2.5" fill="#fff"/>
+      </svg>
+      <div style="font-size:12px;color:var(--cinza-t);line-height:1.5;">
+        <strong style="color:#042C53;">Jundiaí SP</strong> · Pesquisa municipal 2025<br>
+        Desenvolvido por <strong style="color:#185FA5;">Civiq</strong> — Inteligência Urbana em Tempo Real
+      </div>
+    </div>
+
+  </div>`;
+}
+
+function ops(campo, lista){
+  return lista.map(op=>`<div class="opcao ${R[campo]===op?'sel':''}"
+    onclick="selOp('${campo}','${op.replace(/'/g,"\\'")}',this)">
+    <div class="radio"></div><div class="opcao-txt">${op}</div></div>`).join('');
+}
+
+function rBlocoA(){
+  return `<div class="tela"><div class="bloco-card">
+  <div class="bloco-header"><div class="bloco-letra">A</div><div class="bloco-titulo">Identificação — para ponderar suas respostas</div></div>
+  <div class="bloco-body">
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 1 de 15</div>
+      <div class="pq-txt">Qual é o seu CEP?</div>
+      <div class="pq-dica">Digite seu CEP — identificamos seu bairro automaticamente</div>
+      <div class="ac-wrap">
+        <input type="text" id="bci" class="campo ${R.bairro?'ok':''}"
+          placeholder="Ex: 13208-000"
+          value="${R.cep||''}" autocomplete="off" maxlength="9"
+          oninput="onCepInput(this.value)" onkeydown="onKey(event)">
+      </div>
+      <div id="geo-status" style="margin-top:8px;"></div>
+      <div id="bbd">${R.bairro?`<div class="bairro-badge">✓ Bairro identificado: <strong>${R.bairro}</strong><button onclick="limBairro()">×</button></div>`:''}</div>
+      <div class="ac-hint">CEP usado apenas para identificar o bairro — nenhum dado pessoal é armazenado</div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 2 de 15</div>
+      <div class="pq-txt">Há quanto tempo você mora em Jundiaí?</div>
+      <div class="opcoes">${ops('tempo',['Menos de 1 ano','De 1 a 5 anos','De 5 a 10 anos','Mais de 10 anos','Nasci aqui'])}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 3 de 15</div>
+      <div class="pq-txt">Faixa etária?</div>
+      <div class="opcoes">${ops('idade',['16 a 24 anos','25 a 34 anos','35 a 44 anos','45 a 59 anos','60 anos ou mais'])}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 4 de 15</div>
+      <div class="pq-txt">Gênero?</div>
+      <div class="opcoes">${ops('genero',['Feminino','Masculino','Outro','Prefiro não informar'])}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 5 de 15</div>
+      <div class="pq-txt">Renda familiar mensal?</div>
+      <div class="opcoes">${ops('renda',['Até 1 SM (até R$ 1.518)','De 1 a 3 SM (até R$ 4.554)','De 3 a 6 SM (até R$ 9.108)','Mais de 6 SM (acima de R$ 9.108)','Prefiro não informar'])}</div>
+    </div>
+    <div class="af-badge">🔐 Antifraude ativo — 1 participação por dispositivo a cada 45 dias</div>
+  </div></div></div>`;
+}
+
+function rBlocoB(){
+  return `<div class="tela"><div class="bloco-card">
+  <div class="bloco-header"><div class="bloco-letra">B</div><div class="bloco-titulo">Avaliação Geral da Cidade</div></div>
+  <div class="bloco-body">
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 6 de 15</div>
+      <div class="pq-txt">Como você avalia a qualidade de vida em Jundiaí?</div>
+      <div class="opcoes">${ops('qv',['Muito boa','Boa','Regular','Ruim','Muito ruim'])}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 7 de 15</div>
+      <div class="pq-txt">Nota para a administração municipal nos últimos 12 meses</div>
+      <div class="pq-dica">0 = Péssima · 10 = Excelente</div>
+      <div class="escala">
+        ${[0,1,2,3,4,5,6,7,8,9,10].map(n=>`<div class="en ${R.nota==n?'sel':''}" data-v="${n}" onclick="selNota(${n})">${n}</div>`).join('')}
+      </div>
+      <div class="escala-labs"><span>Péssima</span><span>Excelente</span></div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 8 de 15</div>
+      <div class="pq-txt">Principal problema do seu bairro hoje?</div>
+      <div class="pq-dica">Marque apenas um</div>
+      <div class="opcoes">${ops('prob',['Saúde (UBS, atendimento)','Segurança (violência, iluminação)','Mobilidade e transporte','Educação (vagas, qualidade)','Limpeza urbana e lixo','Infraestrutura (asfalto, calçadas)','Emprego e renda','Meio ambiente','Outro'])}</div>
+    </div>
+  </div></div></div>`;
+}
+
+function rLK(tema){
+  const lk=LK[tema];
+  const letras={saude:'C1',educacao:'C2',seguranca:'C3',mobilidade:'C4',limpeza:'C5',infraestrutura:'C6'};
+  const nums={saude:9,educacao:10,seguranca:11,mobilidade:12,limpeza:13,infraestrutura:14};
+  if(!R['lk_'+tema]) R['lk_'+tema]={};
+  const r=R['lk_'+tema];
+  const OP=['Ótimo','Bom','Regular','Ruim','Péssimo','Não sei'];
+  return `<div class="tela"><div class="bloco-card">
+  <div class="bloco-header"><div class="bloco-letra">${letras[tema]}</div><div class="bloco-titulo">${lk.t}</div></div>
+  <div class="bloco-body">
+    <div class="pq-num">Pergunta ${nums[tema]} de 15</div>
+    <div class="pq-txt" style="margin-bottom:16px">Como você avalia cada serviço?</div>
+    <div class="lk-wrap"><table class="lk-table">
+      <thead><tr><th style="width:38%">Serviço</th>${OP.map(o=>`<th>${o}</th>`).join('')}</tr></thead>
+      <tbody>${lk.i.map(item=>`<tr><td>${item}</td>${OP.map(op=>`<td><div class="lk-r ${r[item]===op?'on':''}"
+        onclick="selLK('${tema}','${item.replace(/'/g,"\\'")}','${op}',this)"></div></td>`).join('')}</tr>`).join('')}</tbody>
+    </table></div>
+    <p style="font-size:12px;color:var(--cinza-t);margin-top:10px;">Se não usa ou não tem opinião, marque "Não sei"</p>
+  </div></div></div>`;
+}
+
+function rBlocoD(){
+  const s=R.rec==='Sim, pelo app/site'||R.rec==='Sim, pessoalmente/telefone';
+  return `<div class="tela"><div class="bloco-card">
+  <div class="bloco-header"><div class="bloco-letra">D</div><div class="bloco-titulo">Participação e Canais</div></div>
+  <div class="bloco-body">
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 15 — parte 1</div>
+      <div class="pq-txt">Já tentou registrar uma reclamação à prefeitura?</div>
+      <div class="opcoes">${ops('rec',['Sim, pelo app/site','Sim, pessoalmente/telefone','Não — não sabia como','Não — achei que não adiantaria','Nunca precisei'])}</div>
+      ${s?`<div class="nota-rot">↳ Qual foi o resultado?</div>
+      <div class="opcoes" style="margin-top:10px">${ops('res_rec',['Resolvido rapidamente','Resolvido, mas demorou','Não foi resolvido','Não recebi retorno'])}</div>`:''}
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-num">Pergunta 15 — parte 2</div>
+      <div class="pq-txt">Canal preferido para informações municipais?</div>
+      <div class="opcoes">${ops('canal',['Redes sociais da prefeitura','Aplicativo municipal','Jornal/rádio/TV local','Grupos de WhatsApp do bairro','Pessoalmente na subprefeitura','Não acompanho'])}</div>
+    </div>
+  </div></div></div>`;
+}
+
+function rBlocoE(){
+  return `<div class="tela"><div class="bloco-card">
+  <div class="bloco-header"><div class="bloco-letra">E</div><div class="bloco-titulo">Prioridades e Perspectivas</div></div>
+  <div class="bloco-body">
+    <div class="pq-wrap">
+      <div class="pq-num">Quase lá!</div>
+      <div class="pq-txt">Arraste para ordenar: qual área priorizar?</div>
+      <div class="pq-dica">Primeira posição = mais urgente</div>
+      <div class="prio-lista" id="plio">
+        ${R.prioridades.map((a,i)=>`<div class="prio-item" draggable="true" data-a="${a}"
+          ondragstart="dStart(event)" ondragover="dOver(event)" ondrop="dDrop(event)" ondragleave="dLeave(event)">
+          <div class="prio-rank">${i+1}</div>
+          <div class="prio-nome">${a}</div>
+          <div class="prio-drag">⠿</div></div>`).join('')}
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-txt">Como você vê Jundiaí daqui a 2 anos?</div>
+      <div class="opcoes">${ops('persp',['Muito otimista','Otimista','Neutro','Pessimista','Muito pessimista'])}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-txt">Indicaria Jundiaí como boa cidade para viver?</div>
+      <div class="opcoes">${ops('rec2',['Com certeza sim','Provavelmente sim','Provavelmente não','Com certeza não'])}</div>
+    </div>
+    <div class="divider"></div>
+    <div class="pq-wrap">
+      <div class="pq-txt">Quer destacar algo? <span style="color:var(--cinza-t);font-size:13px">(opcional)</span></div>
+      <textarea class="campo-area" rows="4" maxlength="500" placeholder="Seu comentário..."
+        oninput="R.coment=this.value;document.getElementById('cnt').textContent=this.value.length+' / 500'"
+      >${R.coment||''}</textarea>
+      <div class="cnt" id="cnt">${(R.coment||'').length} / 500</div>
+    </div>
+  </div></div></div>`;
+}
+
+function rFinal(){
+  document.getElementById('btn-area').classList.add('hidden');
+  document.getElementById('barra').style.width='100%';
+  document.getElementById('prog-txt').textContent='Concluído!';
+  if(af&&!af.bloqueado) {
+    registrar(af.fp,af.kls,af.kidb);
+    // Enviar para Google Sheets
+    const dados = {
+      meta: {versao:'1.0', municipio:'Jundiaí SP', base:'Censo IBGE 2022', ts: new Date().toISOString()},
+      respostas: {...R}
+    };
+    enviarParaSheets(dados);
+  }
+  return `<div class="tela-final tela">
+  <div class="tf-ico">✓</div>
+  <h2>Obrigado pela sua participação!</h2>
+  <p>Suas respostas contribuem para um diagnóstico real dos serviços públicos de Jundiaí, bairro por bairro.</p>
+  <p style="font-size:13px">Você poderá responder novamente em <strong>45 dias</strong>.</p>
+  <button class="btn-exp" onclick="exportar()">⬇ Baixar minha resposta em JSON</button>
+  <p style="margin-top:20px;font-size:12px;color:var(--cinza-b)">Resultados publicados pela <strong style='color:#185FA5;'>Civiq</strong> de forma agregada e anônima.<br>Base: Censo Demográfico IBGE 2022 — Agregados por Bairros.</p>
+  </div>`;
+}
+
+function rBloqueio(dias){
+  document.getElementById('btn-area').classList.add('hidden');
+  return `<div class="tela-bloq tela">
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:20px;">
+      <svg width="28" height="28" viewBox="0 0 44 44" fill="none">
+        <rect width="44" height="44" rx="10" fill="#185FA5"/>
+        <rect x="7" y="22" width="7" height="15" rx="2" fill="#fff"/>
+        <rect x="18" y="16" width="7" height="21" rx="2" fill="#85B7EB"/>
+        <rect x="29" y="9" width="7" height="28" rx="2" fill="#B5D4F4"/>
+      </svg>
+      <span style="font-size:16px;font-weight:700;color:#042C53;letter-spacing:-0.3px;">Civiq</span>
+    </div>
+    <div class="tb-ico" style="background:#E6F1FB;">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+        <circle cx="18" cy="18" r="14" stroke="#185FA5" stroke-width="2" fill="none"/>
+        <path d="M18 10v8l5 3" stroke="#185FA5" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h2 style="color:#042C53;">Obrigado pela participação!</h2>
+    <p>Você já respondeu essa pesquisa recentemente. Para manter a qualidade dos dados, cada dispositivo pode participar <strong>uma vez a cada 45 dias</strong>.</p>
+    <div class="dias-box" style="background:#E6F1FB;border-color:#185FA5;color:#185FA5;">${dias} dia${dias>1?'s':''} restante${dias>1?'s':''}</div>
+    <p style="font-size:13px;">Sua resposta já está contribuindo para o mapeamento dos serviços públicos de Jundiaí. Compartilhe o link com seus vizinhos!</p>
+    <div style="margin-top:16px;padding:14px;background:#E6F1FB;border-radius:10px;font-size:12px;color:#185FA5;text-align:center;">
+      <strong>datafocus-jundiai.netlify.app</strong><br>
+      <span style="color:#378ADD;">Envie para quem você conhece em Jundiaí</span>
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════════
+// INTERAÇÕES
+// ════════════════════════════════════════
+function selOp(campo,val,el){
+  R[campo]=val;
+  el.closest('.opcoes').querySelectorAll('.opcao').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  if(campo==='rec') renderT(); else chk();
+}
+function selNota(v){
+  R.nota=v;
+  document.querySelectorAll('.en').forEach(el=>el.classList.toggle('sel',parseInt(el.dataset.v)===v));
+  chk();
+}
+function selLK(tema,item,op,el){
+  if(!R['lk_'+tema]) R['lk_'+tema]={};
+  R['lk_'+tema][item]=op;
+  el.closest('tr').querySelectorAll('.lk-r').forEach(r=>r.classList.remove('on'));
+  el.classList.add('on'); chk();
+}
+
+let dSrc=null;
+function dStart(e){dSrc=e.currentTarget;e.currentTarget.classList.add('dragging');}
+function dOver(e){e.preventDefault();e.currentTarget.classList.add('drag-over');}
+function dLeave(e){e.currentTarget.classList.remove('drag-over');}
+function dDrop(e){
+  e.preventDefault(); const t=e.currentTarget; t.classList.remove('drag-over');
+  if(dSrc&&dSrc!==t){
+    const l=document.getElementById('plio'), its=[...l.children];
+    const si=its.indexOf(dSrc), ti=its.indexOf(t);
+    if(si<ti) l.insertBefore(dSrc,t.nextSibling); else l.insertBefore(dSrc,t);
+    [...l.children].forEach((el,i)=>el.querySelector('.prio-rank').textContent=i+1);
+    R.prioridades=[...l.children].map(el=>el.dataset.a);
+  }
+  dSrc&&dSrc.classList.remove('dragging');
+}
+
+// ════════════════════════════════════════
+// NAVEGAÇÃO
+// ════════════════════════════════════════
+function valida(){
+  const id=TELAS[tela].id;
+  if(id==='capa') return true;
+  if(id==='a') return !!(bairroOk&&R.bairro&&R.tempo&&R.idade&&R.genero&&R.renda);
+  if(id==='b') return !!(R.qv&&R.nota!=null&&R.prob);
+  if(id==='d') return !!(R.rec&&R.canal);
+  if(id==='e') return !!(R.persp&&R.rec2);
+  if(id.startsWith('c_')){
+    const mapa={saude:'saude',edu:'educacao',seg:'seguranca',mob:'mobilidade',limp:'limpeza',infra:'infraestrutura'};
+    const t2=mapa[id.replace('c_','')] || id.replace('c_','');
+    const r=R['lk_'+t2]||{};
+    return !!(LK[t2]&&LK[t2].i.every(it=>r[it]));
+  }
+  return true;
+}
+
+function chk(){const b=document.getElementById('btn-a');if(b)b.disabled=!valida();}
+
+function prog(){
+  const tot=TELAS.length-1, pct=Math.round((Math.min(tela,tot)/tot)*100);
+  document.getElementById('barra').style.width=pct+'%';
+  document.getElementById('prog-txt').textContent=tela===0?'':pct+'% concluído';
+  const bv=document.getElementById('btn-v'); if(bv)bv.style.visibility=tela===0?'hidden':'visible';
+  const ba=document.getElementById('btn-a');
+  if(ba){
+    if(TELAS[tela].id==='e'){ba.textContent='Enviar pesquisa ✓';ba.className='btn btn-e';}
+    else{ba.innerHTML='Continuar →';ba.className='btn btn-a';}
+  }
+  const ba2=document.getElementById('btn-area');
+  if(ba2) ba2.classList.toggle('hidden',TELAS[tela].id==='final');
+}
+
+function renderT(){
+  if(af&&af.bloqueado&&tela===0){document.getElementById('app').innerHTML=rBloqueio(af.diasR);return;}
+  document.getElementById('app').innerHTML=TELAS[tela].fn();
+  prog(); chk();
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(TELAS[tela].id==='a'&&R.bairro) bairroOk=true;
+}
+
+function avancar(){if(!valida())return;if(tela<TELAS.length-1){tela++;renderT();}}
+function voltar(){if(tela>0){tela--;renderT();}}
+
+function exportar(){
+  const d={meta:{versao:'1.0',municipio:'Jundiaí SP',base:'Censo IBGE 2022',ts:new Date().toISOString()},respostas:{...R}};
+  const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(b);
+  a.download='pesquisa_jundiai_'+Date.now()+'.json'; a.click(); URL.revokeObjectURL(a.href);
+}
+
+
+// ════════════════════════════════════════
+// ENVIO PARA GOOGLE SHEETS
+// ════════════════════════════════════════
+const API_URL = 'https://script.google.com/macros/s/AKfycbwzB6VvrRJTAJvPLsYMIm7K54vaDtz2AeV1QMrtTX3tj7BZmTz82fMleIG4h7KlpKBQ/exec';
+
+async function enviarParaSheets(dados) {
+  try {
+    await fetch(API_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+    return true;
+  } catch(err) {
+    console.warn('Erro ao enviar:', err);
+    return false;
+  }
+}
+
+
+// ════════════════════════════════════════
+// CEP — ViaCEP (só Jundiaí)
+// ════════════════════════════════════════
+
+// Faixas de CEP válidas de Jundiaí SP
+const CEP_JUNDIAI_RANGES = [
+  [13200000, 13219999],
+  [13295000, 13299999],
+];
+
+// Mapeamento CEP → bairro (principais CEPs de Jundiaí)
+const BAIRROS_COORDS = {
+  "Aeroporto":[-23.218,-46.868],
+  "Agapeama":[-23.258,-46.903],
+  "Alvorada":[-23.205,-46.882],
+  "Anhangabaú":[-23.192,-46.886],
+  "Bom Jardim":[-23.259,-46.915],
+  "Bonfiglioli":[-23.212,-46.854],
+  "Campo Verde":[-23.243,-46.91],
+  "Casa Branca":[-23.248,-46.92],
+  "Castanho":[-23.241,-46.902],
+  "Caxambu":[-23.17,-46.906],
+  "Cecap":[-23.202,-46.848],
+  "Centro":[-23.186,-46.884],
+  "Champirra":[-23.266,-46.887],
+  "Chácara Urbana":[-23.192,-46.876],
+  "Colônia":[-23.18,-46.85],
+  "Cristais":[-23.256,-46.878],
+  "Currupira":[-23.196,-46.864],
+  "Distrito Industrial":[-23.213,-46.836],
+  "Eloy Chaves":[-23.201,-46.855],
+  "Engordadouro":[-23.212,-46.902],
+  "Ermida":[-23.223,-46.859],
+  "Fazenda Conceição":[-23.276,-46.863],
+  "Fazenda Grande":[-23.27,-46.896],
+  "Fernandes":[-23.244,-46.887],
+  "Gramadão":[-23.194,-46.874],
+  "Horto Florestal":[-23.166,-46.893],
+  "Hortolândia":[-23.235,-46.868],
+  "Ivoturucaia":[-23.279,-46.902],
+  "Jardim Botânico":[-23.169,-46.903],
+  "Jardim Pacaembu":[-23.221,-46.888],
+  "Jardim do Lago":[-23.214,-46.862],
+  "Jundiaí Mirim":[-23.164,-46.874],
+  "Malota":[-23.218,-46.901],
+  "Marco Leite":[-23.232,-46.878],
+  "Maringá":[-23.245,-46.892],
+  "Mato Dentro":[-23.283,-46.887],
+  "Medeiros":[-23.27,-46.876],
+  "Moisés":[-23.208,-46.866],
+  "Nambi":[-23.224,-46.895],
+  "Nova Odessa":[-23.229,-46.916],
+  "Novo Horizonte":[-23.198,-46.872],
+  "Parque Centenário":[-23.187,-46.88],
+  "Parque Industrial":[-23.214,-46.842],
+  "Pinheirinho":[-23.254,-46.917],
+  "Ponte Alta":[-23.252,-46.887],
+  "Ponte São João":[-23.193,-46.898],
+  "Poste":[-23.24,-46.874],
+  "Pracatú":[-23.265,-46.867],
+  "Retiro":[-23.184,-46.892],
+  "Rio Acima":[-23.177,-46.879],
+  "Rio das Pedras":[-23.261,-46.908],
+  "Roseira":[-23.249,-46.874],
+  "Samambaia":[-23.218,-46.914],
+  "Santa Gertrudes":[-23.243,-46.905],
+  "São Camilo":[-23.227,-46.894],
+  "São José da Pedra Santa":[-23.242,-46.91],
+  "Tamoio":[-23.189,-46.876],
+  "Tarumã":[-23.22,-46.874],
+  "Terra Nova":[-23.257,-46.891],
+  "Tijuco Preto":[-23.274,-46.91],
+  "Toca":[-23.187,-46.905],
+  "Torres de São José":[-23.231,-46.875],
+  "Traviú":[-23.244,-46.879],
+  "Tulipas":[-23.205,-46.865],
+  "Vale Azul":[-23.211,-46.886],
+  "Vianelo":[-23.226,-46.873],
+  "Vila Arens":[-23.198,-46.876],
+  "Vila Militar":[-23.187,-46.879],
+  "Vila Municipal":[-23.182,-46.883],
+  "Vila Progresso":[-23.194,-46.87],
+  "Vila Rami":[-23.206,-46.893],
+  "Vila Rio Branco":[-23.199,-46.876],
+  "Água Doce":[-23.27,-46.88]
+};
+const CEP_BAIRRO = {
+  '13201':['Centro','Chácara Urbana'],
+  '13202':['Vila Arens','Vila Municipal','Jardim Botânico'],
+  '13203':['Anhangabaú','Parque Centenário','Novo Horizonte'],
+  '13204':['Tamoio','Gramadão','Vila Rio Branco'],
+  '13205':['Jardim do Lago','Horto Florestal','Retiro'],
+  '13206':['Cecap','Eloy Chaves','Moisés'],
+  '13207':['Caxambu','Jundiaí Mirim'],
+  '13208':['Engordadouro','Malota','Ponte Alta'],
+  '13209':['Colônia','Ponte São João','Samambaia'],
+  '13210':['Vila Rami','Vila Progresso','Vila Militar'],
+  '13211':['Bonfiglioli','Ermida','Currupira'],
+  '13212':['Medeiros','Mato Dentro','Ivoturucaia'],
+  '13213':['Distrito Industrial','Parque Industrial'],
+  '13214':['Hortolândia','Tulipas','Vale Azul'],
+  '13215':['Terra Nova','Cristais','Pracatú'],
+  '13216':['Vianelo','Marco Leite','Fernandes'],
+  '13217':['Campo Verde','Maringá','Castanho'],
+  '13218':['Nambi','São Camilo','Fazenda Grande'],
+  '13219':['Colônia','Timbuí'],
+  '13295':['Traviú','Torres de São José'],
+  '13296':['Fazenda Conceição','Poste'],
+  '13297':['Rio das Pedras','Champirra'],
+  '13298':['Agapeama','Pinheirinho','Bom Jardim'],
+  '13299':['Tijuco Preto','Água Doide','Toca'],
+};
+
+function cepNumero(cep) {
+  return parseInt(cep.replace(/\D/g,''));
+}
+
+function cepValido(cep) {
+  const n = cepNumero(cep);
+  return CEP_JUNDIAI_RANGES.some(([min,max]) => n >= min && n <= max);
+}
+
+function formatarCep(v) {
+  const d = v.replace(/\D/g,'').slice(0,8);
+  return d.length > 5 ? d.slice(0,5)+'-'+d.slice(5) : d;
+}
+
+let cepTimer = null;
+
+function onCepInput(valor) {
+  bairroOk = false;
+  R.bairro = '';
+  R.cep = valor;
+  R.lat = null;
+  R.lng = null;
+
+  const formatado = formatarCep(valor);
+  const campo = document.getElementById('bci');
+  const status = document.getElementById('geo-status');
+  const bbd = document.getElementById('bbd');
+
+  if (!campo) { chk(); return; }
+
+  if (campo.value !== formatado) {
+    campo.value = formatado;
+    R.cep = formatado;
+  }
+
+  campo.classList.remove('ok','err');
+  if (bbd) bbd.innerHTML = '';
+  if (status) status.innerHTML = '';
+
+  const digits = formatado.replace(/\D/g,'');
+
+  if (digits.length < 8) { chk(); return; }
+
+  if (!cepValido(digits)) {
+    if (status) status.innerHTML = '<span style="color:#E24B4A;font-size:12px;">CEP não corresponde a Jundiaí SP. Verifique e tente novamente.</span>';
+    campo.classList.add('err');
+    chk();
+    return;
+  }
+
+  clearTimeout(cepTimer);
+  if (status) status.innerHTML = '<div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border:2px solid #185FA5;border-top-color:transparent;border-radius:50%;animation:spin360 0.7s linear infinite;"></div><span style="font-size:12px;color:#7B95B8;">Buscando bairro...</span></div>';
+
+  cepTimer = setTimeout(() => buscarCep(digits), 400);
+  chk();
+}
+
+async function buscarCep(digits) {
+  const prefixo = digits.slice(0,5);
+  const opcoesBairro = CEP_BAIRRO[prefixo] || [];
+
+  function aplicarBairro(bairroNome, logradouro) {
+    const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+    const bNorm = norm(bairroNome || '');
+    const match = BAIRROS.find(b => norm(b) === bNorm || norm(b).includes(bNorm) || bNorm.includes(norm(b)));
+    const bairro = match || (opcoesBairro.length > 0 ? opcoesBairro[0] : 'Centro');
+    R._bairroTemp = bairro;
+    R._logradouroTemp = logradouro || '';
+    const st = document.getElementById('geo-status');
+    if (st) st.innerHTML = '';
+    abrirModalBairro(bairro);
+  }
+
+  // Tentar ViaCEP
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 5000);
+    const resp = await fetch('https://viacep.com.br/ws/' + digits + '/json/', { signal: ctrl.signal });
+    clearTimeout(timer);
+    const data = await resp.json();
+
+    if (!data.erro) {
+      // ViaCEP retornou dados válidos
+      const bairroViaCep = data.bairro && data.bairro.length > 0 ? data.bairro : (opcoesBairro[0]||'Centro');
+      aplicarBairro(bairroViaCep, data.logradouro || '');
+      return;
+    }
+    // CEP retornou {erro:true} — usar fallback interno imediatamente
+    aplicarBairro(opcoesBairro.length > 0 ? opcoesBairro[0] : 'Centro', '');
+  } catch(err) {
+    // Timeout ou erro de rede — sempre usar mapeamento interno
+    aplicarBairro(opcoesBairro.length > 0 ? opcoesBairro[0] : 'Centro', '');
+  }
+}
+
+function limBairro() {
+  bairroOk = false;
+  R.bairro = '';
+  R.cep = '';
+  R.lat = null;
+  R.lng = null;
+  const campo = document.getElementById('bci');
+  campo.value = '';
+  campo.classList.remove('ok','err');
+  document.getElementById('bbd').innerHTML = '';
+  document.getElementById('geo-status').innerHTML = '';
+  campo.focus();
+  chk();
+}
+
+
+// ════════════════════════════════════════
+// MODAL DE CONFIRMAÇÃO DE BAIRRO — funções no escopo correto
+// ════════════════════════════════════════
+
+function abrirModalBairro(bairro) {
+  document.getElementById('modal-nome-bairro').textContent = bairro;
+  const wrap = document.getElementById('modal-lista-wrap');
+  wrap.style.display = 'none';
+  const busca = document.getElementById('modal-busca');
+  if (busca) busca.value = '';
+  document.getElementById('modal-bairro-overlay').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharModalBairro() {
+  document.getElementById('modal-bairro-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function _confirmarBairro() {
+  const bairro = R._bairroTemp || 'Centro';
+  const coords = BAIRROS_COORDS[bairro];
+  if (coords) {
+    R.lat = coords[0] + (Math.random()-0.5)*0.003;
+    R.lng = coords[1] + (Math.random()-0.5)*0.003;
+  }
+  R.bairro = bairro;
+  R.endereco = R._logradouroTemp ? R._logradouroTemp + ' — Jundiaí SP' : 'Jundiaí SP';
+  bairroOk = true;
+  const campo = document.getElementById('bci');
+  if (campo) { campo.classList.add('ok'); campo.classList.remove('err'); }
+  const bbd = document.getElementById('bbd');
+  if (bbd) bbd.innerHTML = '<div class="bairro-badge">✓ ' + bairro + '<button onclick="limBairro()">×</button></div>';
+  fecharModalBairro();
+  chk();
+}
+
+function _abrirListaBairros() {
+  const wrap = document.getElementById('modal-lista-wrap');
+  wrap.style.display = 'block';
+  _renderListaModal(BAIRROS);
+  document.getElementById('modal-busca').focus();
+}
+
+function _renderListaModal(lista) {
+  const container = document.getElementById('modal-lista-bairros');
+  container.innerHTML = lista.map(b =>
+    '<div class="modal-bairro-item" data-bairro="' + b + '">' + b + '</div>'
+  ).join('');
+  // Adicionar listeners nos itens
+  container.querySelectorAll('.modal-bairro-item').forEach(el => {
+    el.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      R._bairroTemp = this.getAttribute('data-bairro');
+      document.getElementById('modal-nome-bairro').textContent = R._bairroTemp;
+      document.getElementById('modal-lista-wrap').style.display = 'none';
+      _confirmarBairro();
+    });
+  });
+}
+
+// ════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════
+(async()=>{
+  af = await checkBloqueio();
+  renderT();
+
+  // Listeners do modal de bairro — dentro do escopo que tem acesso a BAIRROS e BAIRROS_COORDS
+  document.getElementById('btn-modal-confirmar').addEventListener('click', function() {
+    _confirmarBairro();
+  });
+  document.getElementById('btn-modal-corrigir').addEventListener('click', function() {
+    _abrirListaBairros();
+  });
+  document.getElementById('modal-bairro-overlay').addEventListener('click', function(e) {
+    if (e.target === this) fecharModalBairro();
+  });
+  document.getElementById('modal-busca').addEventListener('input', function() {
+    const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+    const q = norm(this.value);
+    _renderListaModal(BAIRROS.filter(b => norm(b).includes(q)));
+  });
+})();
+</script>
+
+<!-- MODAL CONFIRMAÇÃO DE BAIRRO -->
+<div class="modal-overlay" id="modal-bairro-overlay" style="display:none;">
+  <div class="modal-box">
+    <div class="modal-icon">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M14 3C9.03 3 5 7.03 5 12c0 7.5 9 15 9 15s9-7.5 9-15c0-4.97-4.03-9-9-9z" fill="#185FA5"/>
+        <circle cx="14" cy="12" r="3.5" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="modal-titulo">Confirmação de bairro</div>
+    <div class="modal-sub">Identificamos seu bairro pelo CEP informado.<br>Está correto?</div>
+    <div class="modal-bairro-destaque">
+      <div class="modal-bairro-nome" id="modal-nome-bairro">—</div>
+      <div class="modal-bairro-cidade">Jundiaí — SP</div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn-confirmar" id="btn-modal-confirmar">
+        ✓ Sim, é esse meu bairro
+      </button>
+      <button class="btn-corrigir" id="btn-modal-corrigir">
+        Não, quero corrigir
+      </button>
+    </div>
+    <div class="modal-lista-wrap" id="modal-lista-wrap">
+      <div class="modal-lista-titulo">Selecione seu bairro na lista:</div>
+      <input class="modal-busca" id="modal-busca" type="text" placeholder="Digite para filtrar..."
+        oninput="filtrarModalBairros(this.value)" autocomplete="off">
+      <div class="modal-lista-bairros" id="modal-lista-bairros"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
